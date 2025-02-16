@@ -1,0 +1,269 @@
+/* 🌟 General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 🌟 Header */
+header {
+    background-color: #6200ea;
+    color: white;
+    padding: 15px;
+    font-size: 1.8rem;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 🌟 Form Styling */
+#book-form-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+form button {
+    background-color: #6200ea;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+}
+
+form button:hover {
+    background-color: #3700b3;
+}
+
+/* 🌟 Search & Filter */
+#search-section {
+    margin: 20px 0;
+}
+
+#search-section input, #search-section select {
+    width: 45%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* 🌟 Book List */
+#book-list-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+
+ul#bookList {
+    list-style: none;
+    margin-top: 10px;
+}
+
+ul#bookList li {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul#bookList li span {
+    font-weight: bold;
+}
+.edit-btn, .delete-btn {
+  background-color: #6200ea;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+}
+.delete-btn {
+    background: #d32f2f;
+}
+
+.delete-btn:hover {
+    background: #b71c1c;
+}
+
+/* 🌟 Responsive Design */
+@media (max-width: 600px) {
+    #search-section input, #search-section select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    ul#bookList li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .edit-btn,
+  .delete-btn {
+    display: block;      
+    width: 100%;         
+    margin: 4px 0;       
+    font-size: 0.9rem;   
+    padding: 10px;
+  }
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  header nav ul {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  header nav ul li {
+    margin: 5px 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Optionally, adjust font sizes for better readability */
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  header nav ul li a {
+    display: block;
+    width: 100%;
+  }
+}
+/* Style the select dropdown */
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    appearance: none; /* Removes default browser styles */
+}
+
+/* Style the dropdown arrow (custom appearance) */
+select::-ms-expand {
+    display: none; /* Hides default arrow in IE */
+}
+
+/* Improve focus style */
+select:focus {
+    border-color: #6200ea;
+    outline: none;
+    box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+}
+
+/* Style the options inside the dropdown (limited styling) */
+option {
+    background-color: white;
+    color: black;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+/* Style the hovered option (works only in some browsers) */
+option:hover {
+    background-color: #6200ea;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;     /* Use Flexbox */
+    gap: 20px;         /* Space between links */
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin: 0;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 12px; 
+    transition: background-color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    background-color: #3700b3;
+    border-radius: 4px;
+  }
+section {
+    padding: 20px;
+}
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+  }
+  
+  /* Modal Content Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust width as needed */
+    max-width: 500px;
+    border-radius: 8px;
+  }
+  
+  /* Close Button */
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover,
+  .close-btn:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
