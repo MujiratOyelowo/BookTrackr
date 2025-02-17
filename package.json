@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "parcel assets/Pages/index.html",
-    "build": "parcel build --dist-dir docs --public-url /CheckList/ assets/Pages/*.html",
+    "build": "parcel build --no-scope-hoist --dist-dir docs --public-url /booktrackr/ assets/Pages/*.html",
     "dev:build": "parcel build --dist-dir dist --no-content-hash assets/Pages/*.html",
     "dev:run": "npm run dev:build && npm run dev:start",
     "dev:start": "parcel serve --dist-dir dist assets/Pages/*.html",
