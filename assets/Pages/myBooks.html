@@ -1,28 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Books</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <!-- Navigation Bar -->
+  <!-- Header (Optional) -->
   <header>
-    <h1>My Book Log</h1>
+    <h1><a href="../Pages/index.html">BookTrackr</a></h1>
     <nav>
       <ul>
-        <li><a href="#book-form-section">Add a Book</a></li>
-        <li><a href="#search-section">Search & Filter</a></li>
         <li><a href="./myBooks.html">My Books</a></li>
       </ul>
+      <!-- Search & Filter in the header nav -->
+      <div class="search-filter-container">
+        <input
+          type="text"
+          id="searchBar"
+          placeholder="Search by title or author"
+        />
+        <select id="filterGenre">
+          <option value="">Filter by Genre</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Non-Fiction">Non-Fiction</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Biography">Biography</option>
+        </select>
+      </div>
     </nav>
   </header>
 
-  <section id="book-list-section">
-    <h2>My Books</h2>
-    <ul id="bookList"></ul>
-  </section>
+  <!-- Container to hold the sidebar and main content side by side -->
+  <div class="container">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <h2>Organize Your Books</h2>
+      <!-- Your dropdown for organizing -->
+      <select id="organizeBy">
+        <option value="">Default Order</option>
+        <option value="genre">By Genre</option>
+        <option value="author">By Author</option>
+      </select>
+
+      <!-- You can add other controls here, like a search bar, filter, etc.
+           or keep them in your header/nav if you prefer. -->
+    </aside>
+
+    <!-- Main Content: Book List -->
+    <main class="main-content">
+      <section id="book-list-section">
+        <h2>My Books</h2>
+        <ul id="bookList"></ul>
+      </section>
+    </main>
+  </div>
 
   <!-- Edit Modal -->
   <div id="editModal" class="modal">
@@ -44,6 +79,15 @@
         <input type="number" id="editRating" min="1" max="5" placeholder="Rating (1-5)" required>
         <button type="submit">Save Changes</button>
       </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <p>Are you sure you want to delete this book?</p>
+      <button id="confirmDelete">Yes, Delete</button>
+      <button id="cancelDelete">Cancel</button>
     </div>
   </div>
 

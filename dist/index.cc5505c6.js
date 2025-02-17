@@ -612,15 +612,22 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const editModal = document.getElementById("editModal");
     const editForm = document.getElementById("editForm");
     const closeModalBtn = document.querySelector(".close-btn");
-    // Variable to store the current book id being edited
+    // Modal elements for delete confirmation
+    const deleteModal = document.getElementById("deleteModal");
+    const confirmDeleteBtn = document.getElementById("confirmDelete");
+    const cancelDeleteBtn = document.getElementById("cancelDelete");
+    // Variable to store the current book id being edited or deleted
     let currentBookId = null;
-    // Close modal when the close button is clicked
+    let currentDeleteBookId = null;
+    // Close edit modal when the close button is clicked
     closeModalBtn.addEventListener("click", ()=>{
         editModal.style.display = "none";
     });
-    // Optional: Close modal when clicking outside the modal content
+    // Optional: Close edit modal when clicking outside the modal content
     window.addEventListener("click", (event)=>{
         if (event.target === editModal) editModal.style.display = "none";
+        // Also hide delete modal if clicking outside its content
+        if (event.target === deleteModal) deleteModal.style.display = "none";
     });
     // 🌟 Function to Add a Book
     async function addBook(title, author, genre, rating) {
@@ -715,7 +722,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             console.error("Error updating book:", error);
         }
     });
-    // 🌟 Handle Form Submission
+    // 🌟 Handle Form Submission for Adding a Book
     bookForm.addEventListener("submit", (e)=>{
         e.preventDefault(); // Prevent page reload
         // Get form values
@@ -731,12 +738,25 @@ document.addEventListener("DOMContentLoaded", ()=>{
     // 🌟 Handle Book Deletion and Editing (Event Delegation) for the book list
     bookList.addEventListener("click", (e)=>{
         if (e.target.classList.contains("delete-btn")) {
-            const bookId = e.target.getAttribute("data-id");
-            deleteBook(bookId);
+            // Instead of immediately deleting, show the delete confirmation modal
+            currentDeleteBookId = e.target.getAttribute("data-id");
+            deleteModal.style.display = "block";
         } else if (e.target.classList.contains("edit-btn")) {
             const bookId = e.target.getAttribute("data-id");
             editBook(bookId);
         }
+    });
+    // 🌟 Delete Confirmation Modal Handlers
+    confirmDeleteBtn.addEventListener("click", ()=>{
+        if (currentDeleteBookId) {
+            deleteBook(currentDeleteBookId);
+            currentDeleteBookId = null;
+        }
+        deleteModal.style.display = "none";
+    });
+    cancelDeleteBtn.addEventListener("click", ()=>{
+        currentDeleteBookId = null;
+        deleteModal.style.display = "none";
     });
     // 🌟 Handle Search & Filter
     searchBar.addEventListener("input", filterBooks);

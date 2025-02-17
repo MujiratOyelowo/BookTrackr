@@ -15,18 +15,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const editForm = document.getElementById("editForm");
     const closeModalBtn = document.querySelector(".close-btn");
 
-    // Variable to store the current book id being edited
-    let currentBookId = null;
+    // Modal elements for delete confirmation
+    const deleteModal = document.getElementById("deleteModal");
+    const confirmDeleteBtn = document.getElementById("confirmDelete");
+    const cancelDeleteBtn = document.getElementById("cancelDelete");
 
-    // Close modal when the close button is clicked
+    // Variable to store the current book id being edited or deleted
+    let currentBookId = null;
+    let currentDeleteBookId = null;
+
+    // Close edit modal when the close button is clicked
     closeModalBtn.addEventListener("click", () => {
         editModal.style.display = "none";
     });
 
-    // Optional: Close modal when clicking outside the modal content
+    // Optional: Close edit modal when clicking outside the modal content
     window.addEventListener("click", (event) => {
         if (event.target === editModal) {
             editModal.style.display = "none";
+        }
+        // Also hide delete modal if clicking outside its content
+        if (event.target === deleteModal) {
+            deleteModal.style.display = "none";
         }
     });
 
@@ -49,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const bookSnapshot = await getDocs(booksCollection);
             const books = bookSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             console.log(books);
-
             books.forEach(book => displayBook(book));
         } catch (error) {
             console.error("Error loading books:", error);
@@ -124,16 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-     // 🌟 Handle Form Submission
-     bookForm.addEventListener("submit", (e) => {
+    // 🌟 Handle Form Submission for Adding a Book
+    bookForm.addEventListener("submit", (e) => {
         e.preventDefault(); // Prevent page reload
-
         // Get form values
         const title = document.getElementById("title").value.trim();
         const author = document.getElementById("author").value.trim();
         const genre = document.getElementById("genre").value;
         const rating = document.getElementById("rating").value;
-
         if (title && author && genre && rating) {
             addBook(title, author, genre, rating);
             bookForm.reset(); // Clear form fields
@@ -143,12 +150,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // 🌟 Handle Book Deletion and Editing (Event Delegation) for the book list
     bookList.addEventListener("click", (e) => {
         if (e.target.classList.contains("delete-btn")) {
-            const bookId = e.target.getAttribute("data-id");
-            deleteBook(bookId);
+            // Instead of immediately deleting, show the delete confirmation modal
+            currentDeleteBookId = e.target.getAttribute("data-id");
+            deleteModal.style.display = "block";
         } else if (e.target.classList.contains("edit-btn")) {
             const bookId = e.target.getAttribute("data-id");
             editBook(bookId);
         }
+    });
+
+    // 🌟 Delete Confirmation Modal Handlers
+    confirmDeleteBtn.addEventListener("click", () => {
+        if (currentDeleteBookId) {
+            deleteBook(currentDeleteBookId);
+            currentDeleteBookId = null;
+        }
+        deleteModal.style.display = "none";
+    });
+
+    cancelDeleteBtn.addEventListener("click", () => {
+        currentDeleteBookId = null;
+        deleteModal.style.display = "none";
     });
 
     // 🌟 Handle Search & Filter
@@ -158,18 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
     async function filterBooks() {
         const searchText = searchBar.value.toLowerCase();
         const selectedGenre = filterGenre.value;
-
         try {
             const booksCollection = collection(db, "books");
             const bookSnapshot = await getDocs(booksCollection);
             const books = bookSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
             const filteredBooks = books.filter(book => {
                 const matchesSearch = book.title.toLowerCase().includes(searchText) || book.author.toLowerCase().includes(searchText);
                 const matchesGenre = selectedGenre ? book.genre === selectedGenre : true;
                 return matchesSearch && matchesGenre;
             });
-
             bookList.innerHTML = ""; // Clear list before filtering
             filteredBooks.forEach(book => displayBook(book));
         } catch (error) {
@@ -180,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // 🌟 Load Books on Page Load
     loadBooks();
 });
-
 
 log.info("Application started");
 log.debug("Debugging information");

@@ -3,21 +3,38 @@ import { collection, getDocs, doc, deleteDoc, getDoc, updateDoc } from "firebase
 
 document.addEventListener("DOMContentLoaded", () => {
   const bookList = document.getElementById("bookList");
+  const organizeBySelect = document.getElementById("organizeBy"); // Organize dropdown on My Books page
 
-  // Modal elements
+  // Modal elements for editing
   const editModal = document.getElementById("editModal");
   const editForm = document.getElementById("editForm");
   const closeModalBtn = document.querySelector(".close-btn");
 
-  // Variable to store the current book id being edited
-  let currentBookId = null;
+  // Modal elements for delete confirmation
+  const deleteModal = document.getElementById("deleteModal");
+  const confirmDeleteBtn = document.getElementById("confirmDelete");
+  const cancelDeleteBtn = document.getElementById("cancelDelete");
 
-  // Load books function
+  // Variables to store current book id being edited or deleted
+  let currentBookId = null;
+  let currentDeleteBookId = null;
+
+  // Load books function with ordering
   async function loadBooks() {
     bookList.innerHTML = "";
     const booksCollection = collection(db, "books");
     const bookSnapshot = await getDocs(booksCollection);
-    const books = bookSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    let books = bookSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+    // Apply ordering based on dropdown value (if it exists)
+    if (organizeBySelect) {
+      const criteria = organizeBySelect.value;
+      if (criteria === "genre") {
+        books = books.sort((a, b) => a.genre.localeCompare(b.genre));
+      } else if (criteria === "author") {
+        books = books.sort((a, b) => a.author.localeCompare(b.author));
+      }
+    }
 
     books.forEach(book => {
       // Create a list item with Edit/Delete buttons
@@ -41,6 +58,20 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error deleting book:", error);
     }
   }
+
+  // Delete Confirmation Modal Handlers
+  confirmDeleteBtn.addEventListener("click", () => {
+    if (currentDeleteBookId) {
+      deleteBook(currentDeleteBookId);
+      currentDeleteBookId = null;
+    }
+    deleteModal.style.display = "none";
+  });
+
+  cancelDeleteBtn.addEventListener("click", () => {
+    currentDeleteBookId = null;
+    deleteModal.style.display = "none";
+  });
 
   // Open the edit modal for a book
   async function editBook(bookId) {
@@ -88,28 +119,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Close the modal when the close button is clicked
+  // Close the edit modal when the close button is clicked
   closeModalBtn.addEventListener("click", () => {
     editModal.style.display = "none";
   });
 
-  // Optionally, close modal when clicking outside the modal content
+  // Optionally, close modals when clicking outside their content
   window.addEventListener("click", (event) => {
     if (event.target === editModal) {
       editModal.style.display = "none";
+    }
+    if (event.target === deleteModal) {
+      deleteModal.style.display = "none";
     }
   });
 
   // Event delegation for Edit and Delete buttons in the book list
   bookList.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete-btn")) {
-      const bookId = e.target.getAttribute("data-id");
-      deleteBook(bookId);
+      // Instead of immediately deleting, show the delete confirmation modal
+      currentDeleteBookId = e.target.getAttribute("data-id");
+      deleteModal.style.display = "block";
     } else if (e.target.classList.contains("edit-btn")) {
       const bookId = e.target.getAttribute("data-id");
       editBook(bookId);
     }
   });
+
+  // Add an event listener for the organizeBy dropdown to reload books when changed
+  if (organizeBySelect) {
+    organizeBySelect.addEventListener("change", () => {
+      loadBooks();
+    });
+  }
 
   // Initial load of books
   loadBooks();
