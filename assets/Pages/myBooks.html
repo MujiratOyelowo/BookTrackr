@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="../css/media-queries.css">
 </head>
 <body>
-  <!-- Header (Optional) -->
   <header>
     <h1><a href="../Pages/index.html">BookTrackr</a></h1>
     <nav>
@@ -36,7 +35,7 @@
   </header>
 
   <!-- Container to hold the sidebar and main content side by side -->
-  <div class="container">
+  <main class="container">
     <!-- Left Sidebar -->
     <aside class="sidebar">
       <h2>Organize Your Books</h2>
@@ -51,14 +50,14 @@
            or keep them in your header/nav if you prefer. -->
     </aside>
 
-    <!-- Main Content: Book List -->
-    <main class="main-content">
+    <!-- Book List -->
+    <div class="main-content">
       <section id="book-list-section">
         <h2>My Books</h2>
         <ul id="bookList"></ul>
       </section>
-    </main>
-  </div>
+    </div>
+  </main>
 
   <!-- Edit Modal -->
   <div id="editModal" class="modal">

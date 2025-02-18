@@ -14,8 +14,6 @@
     <h1><a href="/index.html">BookTrackr</a></h1>
     <nav>
       <ul>
-        <!-- Uncomment if you want an internal "Add a Book" anchor
-        <li><a href="#book-form-section">Add a Book</a></li> -->
         <li><a href="/myBooks.html">My Books</a></li>
       </ul>
       <!-- Search & Filter in the header nav -->
@@ -33,7 +31,7 @@
       </div>
     </nav>
   </header>
-
+  <main>
   <!-- Book Entry Form -->
   <section id="book-form-section">
     <h2>Add a Book</h2>
@@ -72,15 +70,13 @@
       <button id="chat-close-btn">exit chatbot</button>
     </div>
   </div>
-  
+</main>
 
-  <!-- Firebase & Main Script -->
-  <!-- <script type="module" src="../scripts/firebase.js"></script> -->
   <script src="/index.be1dd2e8.js" defer=""></script>
   <!-- <script type="module" src="../scripts/chatbot.js"></script> -->
 
   <!-- Edit Modal -->
-  <div id="editModal" class="modal">
+  <section id="editModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
       <h2>Edit Book</h2>
@@ -100,7 +96,7 @@
         <button type="submit">Save Changes</button>
       </form>
     </div>
-  </div>
+  </section>
   <!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">

@@ -1,11 +1,10 @@
 @media (max-width: 600px) {
-    /* Stack nav items on small screens */
     header {
       flex-direction: column;
       align-items: center;
     }
     header h1 {
-      font-size: 1.4rem; /* or smaller, adjust to fit */
+      font-size: 1.4rem;
     }
     nav {
       flex-direction: column;
@@ -50,7 +49,6 @@
         bottom: 0;
         right: 0;
         width: 100%;
-        /* If you want the circle in the bottom-right, consider adjusting #chat-circle's position. */
       }
       #chat-circle {
         position: absolute;
@@ -58,7 +56,7 @@
         bottom: 20px;
         width: 50px;
         height: 50px;
-        margin: 0 0 10px auto; /* position it at bottom-right corner if you want */
+        margin: 0 0 10px auto;
       }
     .chat-widget-open #chatbot-container {
         display: flex;
@@ -69,21 +67,16 @@
         width: 100%;
         max-height: 40%;
         border-radius: 10px 10px 0 0;
-        /* overflow: hidden; */
       }
     #chatbot-header, #chat-input-area {
         flex-shrink: 0;
     }
       #chat-history {
         flex: 1;
-        /* height: calc(100% - 50px); */
         overflow-y: auto;
         padding: 10px;
       }
-    
-      /* The input area inside the chatbot (if any) might need to be resized too */
       #chat-input-area {
-        /* Keep it at bottom, potentially */
         display: flex;
         gap: 5px;
         padding: 10px;

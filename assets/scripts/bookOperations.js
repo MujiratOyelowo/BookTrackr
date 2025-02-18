@@ -1,8 +1,7 @@
-// bookOperations.js
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "./firebase.js";
 
-// Global modal variables (declared with let so they can be reassigned)
+// Global modal variables
 let editModal, editForm, closeModalBtn;
 let deleteModal, confirmDeleteBtn, cancelDeleteBtn;
 let currentBookId = null;
@@ -20,6 +19,7 @@ export async function addBook(title, author, genre, rating) {
   }
 }
 
+//function to edit a book
 export async function editBook(oldTitle, newTitle, newAuthor, newGenre, newRating) {
   try {
     const booksCollection = collection(db, "books");
@@ -64,20 +64,6 @@ export async function deleteBookByTitle(title) {
   }
 }
 
-// export async function getLocalSuggestion() {
-//   try {
-//     const booksCollection = collection(db, "books");
-//     const snapshot = await getDocs(booksCollection);
-//     const allBooks = snapshot.docs.map((doc) => doc.data());
-//     if (allBooks.length === 0) return null;
-//     const randomIndex = Math.floor(Math.random() * allBooks.length);
-//     return allBooks[randomIndex];
-//   } catch (error) {
-//     console.error("Error fetching suggestion:", error);
-//     return null;
-//   }
-// }
-
 //function to load all books
 export async function loadBooks() {
   const bookList = document.getElementById("bookList");
@@ -106,6 +92,7 @@ export function displayBook(book, bookList) {
   bookList.appendChild(li);
 }
 
+//function to show the edit and delete modals
 export function initializeModals() {
   // Grabbing the modal elements after DOM has loaded
   editModal = document.getElementById("editModal");
@@ -116,7 +103,7 @@ export function initializeModals() {
   confirmDeleteBtn = document.getElementById("confirmDelete");
   cancelDeleteBtn = document.getElementById("cancelDelete");
   
-  // Set up edit modal close event
+  // Set up edit modal closing event
   if (closeModalBtn) {
     closeModalBtn.addEventListener("click", hideEditModal);
   }
@@ -168,6 +155,7 @@ export function initializeModals() {
   }
 }
 
+//function to update the book
 export function showEditModal(bookId) {
   getDoc(doc(db, "books", bookId))
     .then((docSnap) => {
@@ -190,12 +178,14 @@ export function showEditModal(bookId) {
     });
 }
 
+//function to hide the edit modal
 export function hideEditModal() {
   if (editModal) {
     editModal.style.display = "none";
   }
 }
 
+//function to show delete modal
 export function showDeleteModal(bookId) {
   currentDeleteBookId = bookId;
   if (deleteModal) {
@@ -203,6 +193,7 @@ export function showDeleteModal(bookId) {
   }
 }
 
+//function to hide delete modal
 export function hideDeleteModal() {
   if (deleteModal) {
     deleteModal.style.display = "none";

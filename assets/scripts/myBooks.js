@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Delete Confirmation Modal Handlers
+  // Deleting Confirmation Modal Handlers
   confirmDeleteBtn.addEventListener("click", () => {
     if (currentDeleteBookId) {
       deleteBook(currentDeleteBookId);
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteModal.style.display = "none";
   });
 
-  // Open the edit modal for a book
+  // Opening the edit modal for a book
   async function editBook(bookId) {
     try {
       const docRef = doc(db, "books", bookId);
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("editAuthor").value = bookData.author;
         document.getElementById("editGenre").value = bookData.genre;
         document.getElementById("editRating").value = bookData.rating;
-        // Display the modal
+        // Displaying the modal
         editModal.style.display = "block";
       } else {
         console.log("Book doesn't exist!");
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Handle modal edit form submission
+  // Handling modal edit form submission
   editForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const updatedTitle = document.getElementById("editTitle").value.trim();
@@ -123,12 +123,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Close the edit modal when the close button is clicked
+  // Closing the edit modal when the close button is clicked
   closeModalBtn.addEventListener("click", () => {
     editModal.style.display = "none";
   });
 
-  // Optionally, close modals when clicking outside their content
+  // closing modals when clicking outside their content
   window.addEventListener("click", (event) => {
     if (event.target === editModal) {
       editModal.style.display = "none";
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Add an event listener for the organizeBy dropdown to reload books when changed
+  // Adding an event listener for the organizeBy dropdown to reload books when changed
   if (organizeBySelect) {
     organizeBySelect.addEventListener("change", () => {
       loadBooks();
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     filterGenre.addEventListener("change", applyFilters);
   }
   
-  // Optionally, call applyFilters() on page load to display all books if filters are empty
+  //calling applyFilters() on page load to display all books if filters are empty
   applyFilters();
   // Initial load of books
   loadBooks();
