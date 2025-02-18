@@ -1,0 +1,93 @@
+@media (width <= 600px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  nav ul {
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+
+  nav ul li {
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .search-filter-container {
+    justify-content: center;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .search-filter-container input, .search-filter-container select {
+    width: 100%;
+  }
+
+  ul#bookList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-btn, .delete-btn {
+    width: 100%;
+    margin: 4px 0;
+    padding: 10px;
+    font-size: .9rem;
+    display: block;
+  }
+
+  #chat-widget {
+    width: 100%;
+    bottom: 0;
+    right: 0;
+  }
+
+  #chat-circle {
+    width: 50px;
+    height: 50px;
+    margin: 0 0 10px auto;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .chat-widget-open #chatbot-container {
+    border-radius: 10px 10px 0 0;
+    flex-direction: column;
+    width: 100%;
+    max-height: 40%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+
+  #chatbot-header, #chat-input-area {
+    flex-shrink: 0;
+  }
+
+  #chat-history {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  #chat-input-area {
+    box-sizing: border-box;
+    background-color: #fff;
+    gap: 5px;
+    padding: 10px;
+    display: flex;
+  }
+}
+/*# sourceMappingURL=index.4d121283.css.map */
