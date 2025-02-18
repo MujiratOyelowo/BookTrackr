@@ -596,10 +596,13 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"1SFvo":[function(require,module,exports,__globalThis) {
+var _filterBooksJs = require("./filterBooks.js");
 var _firebaseJs = require("../scripts/firebase.js");
 var _firestore = require("firebase/firestore");
 document.addEventListener("DOMContentLoaded", ()=>{
     const bookList = document.getElementById("bookList");
+    const searchBar = document.getElementById("searchBar");
+    const filterGenre = document.getElementById("filterGenre");
     const organizeBySelect = document.getElementById("organizeBy"); // Organize dropdown on My Books page
     // Modal elements for editing
     const editModal = document.getElementById("editModal");
@@ -726,10 +729,57 @@ document.addEventListener("DOMContentLoaded", ()=>{
     if (organizeBySelect) organizeBySelect.addEventListener("change", ()=>{
         loadBooks();
     });
+    async function applyFilters() {
+        const searchText = searchBar.value.toLowerCase();
+        const selectedGenre = filterGenre.value;
+        await (0, _filterBooksJs.filterAndDisplayBooks)(searchText, selectedGenre, bookList);
+    }
+    if (searchBar) searchBar.addEventListener("input", applyFilters);
+    if (filterGenre) filterGenre.addEventListener("change", applyFilters);
+    // Optionally, call applyFilters() on page load to display all books if filters are empty
+    applyFilters();
     // Initial load of books
     loadBooks();
 });
 
-},{"../scripts/firebase.js":"eUV3w","firebase/firestore":"8A4BC"}]},["YKOYf","1SFvo"], "1SFvo", "parcelRequire94c2")
+},{"../scripts/firebase.js":"eUV3w","firebase/firestore":"8A4BC","./filterBooks.js":"2aJK5"}],"2aJK5":[function(require,module,exports,__globalThis) {
+// filterBooks.js
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "filterAndDisplayBooks", ()=>filterAndDisplayBooks);
+var _firestore = require("firebase/firestore");
+var _firebaseJs = require("./firebase.js");
+async function filterAndDisplayBooks(searchText, selectedGenre, bookList) {
+    try {
+        const booksCollection = (0, _firestore.collection)((0, _firebaseJs.db), "books");
+        const snapshot = await (0, _firestore.getDocs)(booksCollection);
+        const books = snapshot.docs.map((doc)=>({
+                id: doc.id,
+                ...doc.data()
+            }));
+        // If no filters, show all books:
+        const filteredBooks = books.filter((book)=>{
+            const matchesSearch = book.title.toLowerCase().includes(searchText) || book.author.toLowerCase().includes(searchText);
+            const matchesGenre = selectedGenre ? book.genre === selectedGenre : true;
+            return matchesSearch && matchesGenre;
+        });
+        // Clear the list
+        bookList.innerHTML = "";
+        // Directly update the DOM without using an external displayBook function
+        filteredBooks.forEach((book)=>{
+            const li = document.createElement("li");
+            li.innerHTML = `
+        <span><strong>${book.title}</strong> by ${book.author} (${book.genre}) \u{2B50}${book.rating}</span>
+        <button class="edit-btn" data-id="${book.id}">Edit</button>
+        <button class="delete-btn" data-id="${book.id}">Delete</button>
+      `;
+            bookList.appendChild(li);
+        });
+    } catch (error) {
+        console.error("Error filtering books:", error);
+    }
+}
+
+},{"firebase/firestore":"8A4BC","./firebase.js":"eUV3w","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["YKOYf","1SFvo"], "1SFvo", "parcelRequire94c2")
 
 //# sourceMappingURL=myBooks.de133c07.js.map
