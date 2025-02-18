@@ -6,6 +6,7 @@
   <title>BookTrackr</title>
   <!-- Link to your external CSS file -->
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/media-queries.css">
 </head>
 <body>
   <!-- Header & Nav -->
@@ -62,13 +63,17 @@
     <h2><a href="../Pages/myBooks.html">My Books</a></h2>
     <ul id="bookList"></ul>
   </section>
-  <!-- Chatbot UI -->
-<div id="chatbot-container">
-    <div id="chatbot-header">Chat with BookTrackr</div>
-    <div id="chat-history"></div>
-    <div id="chat-input-area">
-    <input type="text" id="chat-input" placeholder="Type your message..." />
-    <button id="send-btn">Send</button>
+  <!-- Chat Widget (floating circle + container) -->
+<div id="chat-widget" class="chat-widget-closed">
+    <div id="chat-circle">Chat</div>
+    <div id="chatbot-container">
+      <div id="chatbot-header">Chat with BookTrackr</div>
+      <div id="chat-history"></div>
+      <div id="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Type your message..." />
+        <button id="send-btn">Send</button>
+      </div>
+      <button id="chat-close-btn">exit chatbot</button>
     </div>
   </div>
   

@@ -210,7 +210,38 @@ ul#bookList li span {
 .delete-btn:hover {
   background: #b71c1c;
 }
+#chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999; /* so it’s on top */
+}
+/* The small circle (launcher) styling */
+#chat-circle {
+  /* position: relative; */
+  width: 60px;
+  height: 40px;
+  background-color: #6200ea;
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+#chat-circle::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 10px; /* adjust to position the tail horizontally */
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: #6200ea; /* same color as the bubble */
+}
 #chatbot-container {
+  display: none;
   width: 300px;
   border: 1px solid #ccc;
   padding: 10px;
@@ -220,7 +251,10 @@ ul#bookList li span {
   background-color: #fff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  z-index: 999;
+  /* z-index: 999; */
+}
+.chat-widget-open #chatbot-container {
+  display: block;
 }
 #chatbot-header {
   background-color: #6200ea;
@@ -228,9 +262,19 @@ ul#bookList li span {
   padding: 10px;
   font-size: 1rem;
   font-weight: bold;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 10px 10px 0 0; /* Matches the container's top corners */
   text-align: center;
 }
+/* #chat-close-btn {
+  background: none;
+  border: none;
+  background-color: #6200ea;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+} */
 #chat-history {
   height: 200px;
   overflow-y: auto;
@@ -253,7 +297,7 @@ ul#bookList li span {
   border-radius: 5px;
   font-size: 1rem;
 }
-#send-btn {
+#send-btn, #chat-close-btn {
   background-color: #6200ea;
   color: #fff;
   border: none;
@@ -278,56 +322,6 @@ ul#bookList li span {
 
 .chat-message.bot-message {
   color: #555;
-}
-/* 🌟 Responsive Design */
-@media (max-width: 600px) {
-  /* Stack nav items on small screens */
-  header {
-    flex-direction: column;
-    align-items: center;
-  }
-  header h1 {
-    font-size: 1.4rem; /* or smaller, adjust to fit */
-  }
-  nav {
-    flex-direction: column;
-  }
-
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-  }
-
-  nav ul li {
-    margin: 5px 0;
-    text-align: center;
-  }
-
-  .search-filter-container {
-    margin-left: 0;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .search-filter-container input,
-  .search-filter-container select {
-    width: 100%;
-  }
-
-  ul#bookList li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .edit-btn,
-  .delete-btn {
-    display: block;
-    width: 100%;
-    margin: 4px 0;
-    font-size: 0.9rem;
-    padding: 10px;
-  }
 }
 /* Delete Modal styles (if needed, these can be the same as your other modal) */
 .modal {

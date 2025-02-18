@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookForm = document.getElementById("bookForm");
   const searchBar = document.getElementById("searchBar");
   const filterGenre = document.getElementById("filterGenre");
+  const chatWidget = document.getElementById("chat-widget");
+  const chatCircle = document.getElementById("chat-circle");
+  const closeBtn = document.getElementById("chat-close-btn");
+
 
   function appendMessage(text, sender = "bot") {
     const msgDiv = document.createElement("div");
@@ -75,6 +79,12 @@ document.addEventListener("DOMContentLoaded", () => {
     filterGenre.addEventListener("change", applyFilters);
   }
   
+  chatCircle.addEventListener("click", () => {
+      chatWidget.classList.toggle("chat-widget-open")
+  });
+  closeBtn.addEventListener("click", () => {
+      chatWidget.classList.remove("chat-widget-open")
+  })
   // Optionally, call applyFilters() on page load to display all books if filters are empty
   applyFilters();
   loadBooks();
