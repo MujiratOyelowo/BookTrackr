@@ -1,4 +1,3 @@
-// filterBooks.js
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase.js";
 
@@ -16,10 +15,10 @@ export async function filterAndDisplayBooks(searchText, selectedGenre, bookList)
       return matchesSearch && matchesGenre;
     });
 
-    // Clear the list
+    // Clearing the list
     bookList.innerHTML = "";
 
-    // Directly update the DOM without using an external displayBook function
+    // Directly updating the DOM
     filteredBooks.forEach(book => {
       const li = document.createElement("li");
       li.innerHTML = `

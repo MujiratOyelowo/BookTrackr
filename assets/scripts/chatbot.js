@@ -1,8 +1,6 @@
-// chatbot.js
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase.js";
-// import { askOpenAI } from "./openaiAPI.js";
 import { addBook, editBook, deleteBookByTitle, getLocalSuggestion } from "./bookOperations.js";
 
 let apiKey;
@@ -32,7 +30,7 @@ export async function askChatBot(userInput) {
   }
 }
 
-// Processes local commands (help, Q&A, troubleshooting, explain feature, add, edit, delete, suggest)
+// Processes local commands (help, Q&A, troubleshooting, explain feature, add, edit, delete)
 export async function handleLocalCommands(userInput, appendMessage) {
   const lowerInput = userInput.toLowerCase().trim();
 
@@ -50,7 +48,7 @@ export async function handleLocalCommands(userInput, appendMessage) {
     return true;
   }
 
-  //Q&A About App Features ===
+  //Q&A About App Features
   if (lowerInput.includes("how do i search") || lowerInput.includes("how to search")) {
     appendMessage("To search for a book, type keywords into the search bar; the list filters automatically by title or author.", "bot");
     return true;
@@ -60,7 +58,7 @@ export async function handleLocalCommands(userInput, appendMessage) {
     return true;
   }
 
-  //Troubleshooting & Error Guidance ===
+  //Troubleshooting & Error Guidance
   if (lowerInput.includes("not working") || lowerInput.includes("error") || lowerInput.includes("issue")) {
     appendMessage("If you're experiencing issues, please check your internet connection, and try refreshing the page. If the problem persists, please contact support.", "bot");
     return true;

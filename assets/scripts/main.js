@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  //filtering function
   async function applyFilters() {
     const searchText = searchBar.value.toLowerCase();
     const selectedGenre = filterGenre.value;
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   closeBtn.addEventListener("click", () => {
       chatWidget.classList.remove("chat-widget-open")
   })
-  // Optionally, call applyFilters() on page load to display all books if filters are empty
+    //  call applyFilters() on page load to display all books if filters are empty
   applyFilters();
   loadBooks();
 });
