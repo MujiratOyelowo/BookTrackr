@@ -1,8 +1,12 @@
+import { filterAndDisplayBooks } from "./filterBooks.js";
 import { db } from "../scripts/firebase.js";
 import { collection, getDocs, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
 
 document.addEventListener("DOMContentLoaded", () => {
   const bookList = document.getElementById("bookList");
+  const searchBar = document.getElementById("searchBar");
+  const filterGenre = document.getElementById("filterGenre");
+
   const organizeBySelect = document.getElementById("organizeBy"); // Organize dropdown on My Books page
 
   // Modal elements for editing
@@ -153,6 +157,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  async function applyFilters() {
+    const searchText = searchBar.value.toLowerCase();
+    const selectedGenre = filterGenre.value;
+    await filterAndDisplayBooks(searchText, selectedGenre, bookList);
+  }
+
+  if (searchBar) {
+    searchBar.addEventListener("input", applyFilters);
+  }
+  if (filterGenre) {
+    filterGenre.addEventListener("change", applyFilters);
+  }
+  
+  // Optionally, call applyFilters() on page load to display all books if filters are empty
+  applyFilters();
   // Initial load of books
   loadBooks();
 });

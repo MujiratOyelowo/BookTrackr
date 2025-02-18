@@ -787,7 +787,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 });
 (0, _loglevelDefault.default).info("Application started");
 (0, _loglevelDefault.default).debug("Debugging information");
-(0, _loglevelDefault.default).error("An error occurred");
+(0, _loglevelDefault.default).error("An error occurred" + (0, _loglevel.error));
 
 },{"./firebase":"eUV3w","firebase/firestore":"8A4BC","loglevel":"7kRFs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7kRFs":[function(require,module,exports,__globalThis) {
 /*
